@@ -4,7 +4,7 @@
 
 cd encoders
 echo "Compiling yuvjpeg..."
-gcc yuvjpeg.c -std=c99 -I../../libjpeg-turbo-1.3.1/ ../../libjpeg-turbo-1.3.1/.libs/libjpeg.a -o yuvjpeg || { echo 'Failed!' ; exit 1; }
+gcc yuvjpeg.c -std=c99 -I../../libjpeg-turbo-1.5.0/ ../../libjpeg-turbo-1.5.0/.libs/libjpeg.a -o yuvjpeg || { echo 'Failed!' ; exit 1; }
 echo "Compiling yuvmozjpeg..."
 gcc yuvmozjpeg.c -std=c99 -I../../mozjpeg/ ../../mozjpeg/.libs/libjpeg.a -o yuvmozjpeg || { echo 'Failed!' ; exit 1; }
 echo "Compiling yuvjxr..."
@@ -15,7 +15,7 @@ cd ..
 
 cd decoders
 echo "Compiling jpegyuv..."
-gcc jpegyuv.c -std=c99 -I../../libjpeg-turbo-1.3.1/ ../../libjpeg-turbo-1.3.1/.libs/libjpeg.a -o jpegyuv || { echo 'Failed!' ; exit 1; }
+gcc jpegyuv.c -std=c99 -I../../libjpeg-turbo-1.5.0/ ../../libjpeg-turbo-1.5.0/.libs/libjpeg.a -o jpegyuv || { echo 'Failed!' ; exit 1; }
 echo "Compiling jxryuv..."
 gcc jxryuv.c -I../../jxrlib/jxrtestlib -I../../jxrlib/common/include -I../../jxrlib/jxrgluelib -I../../jxrlib/image/sys -D__ANSI__ ../../jxrlib/libjpegxr.a ../../jxrlib/libjxrglue.a -o jxryuv || { echo 'Failed!' ; exit 1; }
 echo "Compiling webpyuv..."
