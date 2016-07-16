@@ -51,8 +51,8 @@ This test suite is developed and tested on Linux (Fedora 20) and OS X (10.9). It
   * Place directory called "jxrlib" alongside this test suite.
 * WebP Encoding/Decoding Library
   * https://developers.google.com/speed/webp/download
-  * Tested with 0.4.0 release
-  * Place directory called "libwebp-0.4.0" alongside this test suite.
+  * Tested with 0.5.1 release
+  * Place directory called "libwebp-0.5.1" alongside this test suite.
 
 # Usage
 

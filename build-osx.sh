@@ -10,7 +10,7 @@ gcc yuvmozjpeg.c -std=c99 -I../../mozjpeg/ ../../mozjpeg/.libs/libjpeg.a -o yuvm
 echo "Compiling yuvjxr..."
 gcc yuvjxr.c -I../../jxrlib/jxrtestlib -I../../jxrlib/common/include -I../../jxrlib/jxrgluelib -I../../jxrlib/image/sys -D__ANSI__ ../../jxrlib/libjpegxr.a ../../jxrlib/libjxrglue.a -o yuvjxr || { echo 'Failed!' ; exit 1; }
 echo "Compiling yuvwebp..."
-gcc yuvwebp.c -o yuvwebp -std=c99 -I../../libwebp-0.4.0/src/ ../../libwebp-0.4.0/src/.libs/libwebp.a -lm -pthread || { echo 'Failed!' ; exit 1; }
+gcc yuvwebp.c -o yuvwebp -std=c99 -I../../libwebp-0.5.1/src/ ../../libwebp-0.5.1/src/.libs/libwebp.a -lm -pthread || { echo 'Failed!' ; exit 1; }
 cd ..
 
 cd decoders
@@ -19,7 +19,7 @@ gcc jpegyuv.c -std=c99 -I../../libjpeg-turbo-1.5.0/ ../../libjpeg-turbo-1.5.0/.l
 echo "Compiling jxryuv..."
 gcc jxryuv.c -I../../jxrlib/jxrtestlib -I../../jxrlib/common/include -I../../jxrlib/jxrgluelib -I../../jxrlib/image/sys -D__ANSI__ ../../jxrlib/libjpegxr.a ../../jxrlib/libjxrglue.a -o jxryuv || { echo 'Failed!' ; exit 1; }
 echo "Compiling webpyuv..."
-gcc webpyuv.c -o webpyuv -std=c99 -I../../libwebp-0.4.0/src/ ../../libwebp-0.4.0/src/.libs/libwebp.a -lm -pthread || { echo 'Failed!' ; exit 1; }
+gcc webpyuv.c -o webpyuv -std=c99 -I../../libwebp-0.5.1/src/ ../../libwebp-0.5.1/src/.libs/libwebp.a -lm -pthread || { echo 'Failed!' ; exit 1; }
 cd ..
 
 cd tests/msssim
