@@ -1,0 +1,11 @@
+decoders/jpegyuv
+decoders/jxryuv
+decoders/webpyuv
+encoders/yuvjpeg
+encoders/yuvjxr
+encoders/yuvmozjpeg
+encoders/yuvwebp
+tests/msssim/iqa-lib/build/release/libiqa.a
+tests/msssim/msssim
+tests/psnrhvsm/psnrhvsm
+tests/ssim/ssim
