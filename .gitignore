@@ -9,3 +9,4 @@ tests/msssim/iqa-lib/build/release/libiqa.a
 tests/msssim/msssim
 tests/psnrhvsm/psnrhvsm
 tests/ssim/ssim
+images/*/*.out
