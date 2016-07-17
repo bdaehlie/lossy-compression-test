@@ -35,8 +35,8 @@ This test suite is developed and tested on Linux (Fedora 20) and OS X (10.9). It
 * libjpeg-turbo
   * http://libjpeg-turbo.virtualgl.org/
   * We prefer libjpeg-turbo over IJG libjpeg
-  * Tested with 1.3.1 release
-  * Place directory called "libjpeg-turbo-1.3.1" alongside this test suite.
+  * Tested with 1.5.0 release
+  * Place directory called "libjpeg-turbo-1.5.0" alongside this test suite.
 * mozjpeg
   * git clone https://github.com/mozilla/mozjpeg.git
   * Tested with latest git revision
@@ -51,8 +51,8 @@ This test suite is developed and tested on Linux (Fedora 20) and OS X (10.9). It
   * Place directory called "jxrlib" alongside this test suite.
 * WebP Encoding/Decoding Library
   * https://developers.google.com/speed/webp/download
-  * Tested with 0.4.0 release
-  * Place directory called "libwebp-0.4.0" alongside this test suite.
+  * Tested with 0.5.1 release
+  * Place directory called "libwebp-0.5.1" alongside this test suite.
 
 # Usage
 
