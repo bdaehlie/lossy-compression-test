@@ -5,8 +5,8 @@
 cd encoders
 echo "Compiling yuvjpeg..."
 gcc -O3 yuvjpeg.c -std=c99 -I../../libjpeg-turbo-1.5.0/ ../../libjpeg-turbo-1.5.0/.libs/libjpeg.a -o yuvjpeg || { echo 'Failed!' ; exit 1; }
-#echo "Compiling yuvmozjpeg..."
-#gcc -O3 yuvmozjpeg.c -std=c99 -I../../mozjpeg/ ../../mozjpeg/.libs/libjpeg.a -lm -o yuvmozjpeg || { echo 'Failed!' ; exit 1; }
+echo "Compiling yuvmozjpeg..."
+gcc -O3 yuvmozjpeg.c -std=c99 -I../../mozjpeg/ ../../mozjpeg/.libs/libjpeg.a -lm -o yuvmozjpeg || { echo 'Failed!' ; exit 1; }
 echo "Compiling yuvjxr..."
 gcc -O3 yuvjxr.c -D__ANSI__ -I../../jxrlib/jxrtestlib -I../../jxrlib/common/include -I../../jxrlib/jxrgluelib -I../../jxrlib/image/sys ../../jxrlib/build/libjxrglue.a ../../jxrlib/build/libjpegxr.a -o yuvjxr -lm || { echo 'Failed!' ; exit 1; }
 echo "Compiling yuvwebp..."
