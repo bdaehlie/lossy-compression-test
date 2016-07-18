@@ -19,7 +19,7 @@ This is a collection of software that can test the compression efficiency of var
 
 # Supported Operating Systems
 
-This test suite is developed and tested on Linux (Fedora 20) and OS X (10.9). It's probably easy to get things working on other versions of Linux and OS X. Little to no effort has gone into getting this working on Windows.
+This test suite is developed and tested on Linux (Ubuntu 16.04) and OS X (10.11). It's probably easy to get things working on other versions of Linux and OS X. Little to no effort has gone into getting this working on Windows.
 
 # Prerequisites
 
