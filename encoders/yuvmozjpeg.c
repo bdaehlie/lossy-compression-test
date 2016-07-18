@@ -250,7 +250,7 @@ int main(int argc, char *argv[]) {
     jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE2, 13.5);
     jpeg_c_set_bool_param(&cinfo, JBOOLEAN_USE_LAMBDA_WEIGHT_TBL, FALSE);
   } else if (strcmp("msssim", metric) == 0) {
-    jpeg_c_set_int_param(&cinfo, JINT_BASE_QUANT_TBL_IDX, 3);
+    jpeg_c_set_int_param(&cinfo, JINT_BASE_QUANT_TBL_IDX, 1);
     jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE1, 10.5);
     jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE2, 13.0);
     jpeg_c_set_bool_param(&cinfo, JBOOLEAN_USE_LAMBDA_WEIGHT_TBL, TRUE);
