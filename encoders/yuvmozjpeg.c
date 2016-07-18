@@ -211,7 +211,7 @@ int main(int argc, char *argv[]) {
 
   jpeg_stdio_dest(&cinfo, jpg_fd);
 
-  cinfo.use_moz_defaults = TRUE;
+  jpeg_c_set_int_param(&cinfo, JINT_COMPRESS_PROFILE, JCP_MAX_COMPRESSION);
 
   cinfo.image_width = luma_width;
   cinfo.image_height = luma_height;
@@ -240,25 +240,25 @@ int main(int argc, char *argv[]) {
   cinfo.comp_info[2].quant_tbl_no = 1;
 
   if (strcmp("psnr", metric) == 0) {
-    cinfo.use_flat_quant_tbl = TRUE;
-    cinfo.lambda_log_scale1 = 9.0;
-    cinfo.lambda_log_scale2 = 0.0;
-    cinfo.use_lambda_weight_tbl = FALSE;
+    jpeg_c_set_int_param(&cinfo, JINT_BASE_QUANT_TBL_IDX, 1);
+    jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE1, 9.0);
+    jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE2, 0.0);
+    jpeg_c_set_bool_param(&cinfo, JBOOLEAN_USE_LAMBDA_WEIGHT_TBL, FALSE);
   } else if (strcmp("ssim", metric) == 0) {
-    cinfo.use_flat_quant_tbl = TRUE;
-    cinfo.lambda_log_scale1 = 12.0;
-    cinfo.lambda_log_scale2 = 13.5;
-    cinfo.use_lambda_weight_tbl = FALSE;
+    jpeg_c_set_int_param(&cinfo, JINT_BASE_QUANT_TBL_IDX, 1);
+    jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE1, 12.0);
+    jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE2, 13.5);
+    jpeg_c_set_bool_param(&cinfo, JBOOLEAN_USE_LAMBDA_WEIGHT_TBL, FALSE);
   } else if (strcmp("msssim", metric) == 0) {
-    cinfo.use_flat_quant_tbl = TRUE;
-    cinfo.lambda_log_scale1 = 10.5;
-    cinfo.lambda_log_scale2 = 13.0;
-    cinfo.use_lambda_weight_tbl = TRUE;
+    jpeg_c_set_int_param(&cinfo, JINT_BASE_QUANT_TBL_IDX, 3);
+    jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE1, 10.5);
+    jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE2, 13.0);
+    jpeg_c_set_bool_param(&cinfo, JBOOLEAN_USE_LAMBDA_WEIGHT_TBL, TRUE);
   } else if (strcmp("hvspsnr", metric) == 0) {
-    cinfo.use_flat_quant_tbl = FALSE;
-    cinfo.lambda_log_scale1 = 16.0;
-    cinfo.lambda_log_scale2 = 15.5;
-    cinfo.use_lambda_weight_tbl = TRUE;
+    jpeg_c_set_int_param(&cinfo, JINT_BASE_QUANT_TBL_IDX, 3);
+    jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE1, 16.0);
+    jpeg_c_set_float_param(&cinfo, JFLOAT_LAMBDA_LOG_SCALE2, 15.5);
+    jpeg_c_set_bool_param(&cinfo, JBOOLEAN_USE_LAMBDA_WEIGHT_TBL, TRUE);
   } else {
     fprintf(stderr, "Bad metric choice!\n");
     return 1;
