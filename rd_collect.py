@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf8
 # Written by Josh Aas
 # Copyright (c) 2013, Mozilla Corporation
 # All rights reserved.
@@ -62,6 +63,26 @@ hevc_config = "../svn_HEVCSoftware/trunk/cfg/encoder_intra_main.cfg"
 # Path to tmp dir to be used by the tests
 tmpdir = "/tmp/"
 ###############################################################################
+
+def print_progress(iteration, total, prefix = '', suffix = '', decimals = 2, barLength = 100):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+        suffix      - Optional  : suffix string (Str)
+        decimals    - Optional  : number of decimals in percent complete (Int)
+        barLength   - Optional  : character length of bar (Int)
+    """
+    filledLength    = int(round(barLength * iteration / float(total)))
+    percents        = round(100.00 * (iteration / float(total)), decimals)
+    bar             = '█' * filledLength + '-' * (barLength - filledLength)
+    sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix)),
+    sys.stdout.flush()
+    if iteration == total:
+        sys.stdout.write('\n')
+        sys.stdout.flush()
 
 def run_silent(cmd):
   FNULL = open(os.devnull, 'w')
@@ -284,7 +305,17 @@ def main(argv):
     print "Image format not supported!"
     return
 
-  Pool().map(process_image, [(format, png) for png in argv[2:]])
+  png_paths = argv[2:]
+
+  progress_ticks_max = len(png_paths)
+  progress_ticks = 0
+  print_progress(progress_ticks, progress_ticks_max, prefix = 'Progress:', suffix = 'Complete', barLength = 50)
+
+  results = Pool().imap_unordered(process_image, [(format, png_path) for png_path in png_paths])
+
+  for x in results:
+    progress_ticks += 1
+    print_progress(progress_ticks, progress_ticks_max, prefix = 'Progress:', suffix = 'Complete', barLength = 50)
 
 if __name__ == "__main__":
   main(sys.argv)

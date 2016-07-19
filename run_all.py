@@ -33,6 +33,7 @@ import subprocess
 import sys
 import math
 import shlex
+import time
 
 ######## Configuration #########
 
@@ -47,34 +48,20 @@ image_codecs = ["jpeg", "mozjpeg", "jxr", "webp", "hevc"]
 
 ###############################################################################
 
-def print_progress(iteration, total, prefix = '', suffix = '', decimals = 2, barLength = 100):
-    """
-    Call in a loop to create terminal progress bar
-    @params:
-        iteration   - Required  : current iteration (Int)
-        total       - Required  : total iterations (Int)
-        prefix      - Optional  : prefix string (Str)
-        suffix      - Optional  : suffix string (Str)
-        decimals    - Optional  : number of decimals in percent complete (Int)
-        barLength   - Optional  : character length of bar (Int)
-    """
-    filledLength    = int(round(barLength * iteration / float(total)))
-    percents        = round(100.00 * (iteration / float(total)), decimals)
-    bar             = '█' * filledLength + '-' * (barLength - filledLength)
-    sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix)),
-    sys.stdout.flush()
-    if iteration == total:
-        sys.stdout.write('\n')
-        sys.stdout.flush()
-
 FNULL = open(os.devnull, 'w')
+
+def print_time():
+	print time.strftime('%I:%M%p %Z on %b %d, %Y')
 
 def shell_wildcard_matches(wildcard_path):
   test_cmd = "ls {} > /dev/null 2>&1".format(wildcard_path)
   return subprocess.call(test_cmd, stdout=FNULL, stderr=FNULL, shell=True)
 
-def run_silent(cmd):
-  rv = subprocess.call(cmd, stdout=FNULL, stderr=FNULL, shell=True)
+def run_command(cmd, silent):
+  if silent:
+    rv = subprocess.call(cmd, stdout=FNULL, stderr=FNULL, shell=True)
+  else:
+    rv = subprocess.call(cmd, shell=True)
   if rv != 0:
     sys.stderr.write("Failure from subprocess:\n")
     sys.stderr.write("\t" + cmd + "\n")
@@ -87,22 +74,16 @@ def main(argv):
     print "No arguments. Edit file to change configuration options."
     return
 
-  # Get list of all files we're going to operate on. We'll operate on files individually rather
-  # than with shell globs so that we can show progress (this takes a while).
-  image_files = ["kodak/kodim01.png"] # TODO Write code to get actual list of all files.
+  print_time()
 
-  #TODO Need to improve parallelization. Not efficient right now.
-  print "Processing images..."
-  progress_ticks_max = len(image_files) * len(image_codecs)
-  progress_ticks = 0
-  print_progress(progress_ticks, progress_ticks_max, prefix = 'Progress:', suffix = 'Complete', barLength = 50)
-  for image_file in image_files:
-    for image_codec in image_codecs:
-      cmd = "./rd_collect.py {0} images/{1}".format(image_codec, image_file)
-      run_silent(cmd)
-      progress_ticks += 1
-      print_progress(progress_ticks, progress_ticks_max, prefix = 'Progress:', suffix = 'Complete', barLength = 50)
-  print "Image processing complete."
+  for image_codec in image_codecs:
+    print "Processing {0} images...".format(image_codec)
+    cmd = "./rd_collect.py {0}".format(image_codec)
+    for image_set in image_sets:
+      cmd += " images/{0}/*.png".format(image_set)
+    run_command(cmd, False)
+    print "Processing {0} images complete.".format(image_codec)
+    print_time()
 
   print "Averaging results..."
   for image_set in image_sets:
@@ -110,16 +91,18 @@ def main(argv):
       wildcard_path = "images/{0}/*.{1}.out".format(image_set, image_codec)
       if shell_wildcard_matches(wildcard_path):
         cmd = "./rd_average.py {1} > {2}.out".format(wildcard_path, image_codec)
-        run_silent(cmd)
+        run_command(cmd, True)
   print "Averaging complete."
+  print_time()
 
   print "Creating graphs..."
   for image_set in image_sets:
     cmd = "./rd_plot.py {0}".format(image_set)
     for image_codec in image_codecs:
       cmd += " {0}.out".format(image_codec)
-    run_silent(cmd)
+    run_command(cmd, True)
   print "Graphs complete."
+  print_time()
 
 if __name__ == "__main__":
   main(sys.argv)
