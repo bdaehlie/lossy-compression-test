@@ -56,10 +56,15 @@ This test suite is developed and tested on Linux (Ubuntu 16.04) and OS X (10.11)
 
 # Usage
 
+## Common Requirements
+
 1. Install required software
 2. Build included encoder/decoder wrappers and metrics programs
-  * OS X: ./build-osx.sh
-  * Linux: ./build-linux.sh
+  * OS X: $ ./build-osx.sh
+  * Linux: $ ./build-linux.sh
+
+## Manual Operation
+
 3. Collect data for desired format and images
   * $ ./rd_collect.py jpeg images/kodak/*.png
   * $ ./rd_collect.py mozjpeg images/kodak/*.png
@@ -68,3 +73,8 @@ This test suite is developed and tested on Linux (Ubuntu 16.04) and OS X (10.11)
   * $ ./rd_average.py images/kodak/*.mozjpeg.out > mozjpeg.out
 5. Generate graphs
   * $ ./rd_plot.py Kodak jpeg.out mozjpeg.out
+
+## Full Automatic Run
+
+3. $ ./run_all.py
+  * Note that this can take a long time to complete, ~9 hours with a 6-core (12 w/hyperthreading) Intel i7 6850k with 32GB RAM and NVRAM disk.
