@@ -34,6 +34,7 @@ import sys
 import math
 import shlex
 import time
+import glob
 
 ######## Configuration #########
 
@@ -52,10 +53,6 @@ FNULL = open(os.devnull, 'w')
 
 def print_time():
 	print time.strftime('%I:%M%p %Z on %b %d, %Y')
-
-def shell_wildcard_matches(wildcard_path):
-  test_cmd = "ls {} > /dev/null 2>&1".format(wildcard_path)
-  return subprocess.call(test_cmd, stdout=FNULL, stderr=FNULL, shell=True)
 
 def run_command(cmd, silent):
   if silent:
@@ -89,9 +86,9 @@ def main(argv):
   for image_set in image_sets:
     for image_codec in image_codecs:
       wildcard_path = "images/{0}/*.{1}.out".format(image_set, image_codec)
-      if shell_wildcard_matches(wildcard_path):
-        cmd = "./rd_average.py {1} > {2}.out".format(wildcard_path, image_codec)
-        run_command(cmd, True)
+      if len(glob.glob(wildcard_path)):
+        cmd = "./rd_average.py {0} > {1}.out".format(wildcard_path, image_codec)
+        run_command(cmd, False)
   print "Averaging complete."
   print_time()
 
@@ -100,7 +97,7 @@ def main(argv):
     cmd = "./rd_plot.py {0}".format(image_set)
     for image_codec in image_codecs:
       cmd += " {0}.out".format(image_codec)
-    run_command(cmd, True)
+    run_command(cmd, False)
   print "Graphs complete."
   print_time()
 
